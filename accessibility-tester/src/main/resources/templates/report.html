@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Accessibility Test Report</title>
+    <link rel="stylesheet" type="text/css" href="/css/styles.css">
+</head>
+<body>
+<h1>Accessibility Test Report</h1>
+<form action="/testAccessibility" method="post">
+    <label>URL: <input id="input-url" type="text" name="url"></label><br>
+    <button type="submit">Run Accessibility Test</button>
+</form>
+
+<!-- Display test results here -->
+<div th:if="${testResults != null}">
+    <h2>Test Results:</h2>
+    <div th:each="result : ${testResults}">
+        <h3 th:text="${result.url}"></h3>
+
+        <table>
+            <tr class="tableHeader">
+                <th th:text="id">id</th>
+                <th th:text="description">description</th>
+                <th th:text="impact">impact</th>
+                <th th:text="helpUrl">helpUrl</th>
+                <th th:text="tags">tags</th>
+                <th th:text="nodes">nodes</th>
+                <th th:text="help">help</th>
+            </tr>
+            <tr class="violation" th:each="violation : ${result.violations}">
+                <td th:text="${violation.id}"></td>
+                <td th:text="${violation.description}"></td>
+                <td th:text="${violation.impact}"></td>
+                <td th:text="${violation.helpUrl}"></td>
+                <td th:text="${violation.tags}"></td>
+                <td th:text="${violation.nodes}"></td>
+                <td th:text="${violation.help}"></td>
+            </tr>
+        </table>
+
+    </div>
+</div>
+</body>
+</html>
